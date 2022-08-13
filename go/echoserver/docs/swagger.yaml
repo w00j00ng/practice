@@ -1,0 +1,138 @@
+definitions:
+  main.CreateUser:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+    type: object
+  main.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  main.UpdateUser:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+    type: object
+  main.User:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  main.UserList:
+    properties:
+      users:
+        items:
+          $ref: '#/definitions/main.User'
+        type: array
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  title: My Web API
+  version: v1.0.1
+paths:
+  /users:
+    get:
+      description: get all users
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.UserList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.Error'
+      summary: getAllUsers
+    post:
+      description: create a new user
+      parameters:
+      - description: User info body
+        in: body
+        name: userBody
+        required: true
+        schema:
+          $ref: '#/definitions/main.CreateUser'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.Error'
+      summary: createUser
+  /users/{id}:
+    delete:
+      description: delete a user by id
+      parameters:
+      - description: id of the user
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.Error'
+      summary: deleteUser
+    get:
+      description: get a user by id
+      parameters:
+      - description: id of the user
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.Error'
+      summary: getUser
+    put:
+      description: update user information by id
+      parameters:
+      - description: id of the user
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User info body
+        in: body
+        name: userBody
+        required: true
+        schema:
+          $ref: '#/definitions/main.UpdateUser'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.Error'
+      summary: updateUser
+swagger: "2.0"
