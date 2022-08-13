@@ -1,0 +1,2 @@
+# Practice for fastapi server
+
