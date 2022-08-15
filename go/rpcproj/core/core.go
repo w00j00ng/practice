@@ -9,7 +9,7 @@ type IServer interface {
 	Update(args *UpdateUser, resp *User) error
 	Read(userID string, resp *User) error
 	Delete(userID string, resp *User) error
-	ReadAll(empty interface{}, resp []*User) error
+	// ReadAll(empty interface{}, resp []*User) error
 }
 
 type (
