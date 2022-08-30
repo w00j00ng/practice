@@ -16,9 +16,10 @@ func TestRead(t *testing.T) {
 		req *http.Request              = httptest.NewRequest(http.MethodGet, "/", nil)
 		rec *httptest.ResponseRecorder = httptest.NewRecorder()
 		c   echo.Context               = e.NewContext(req, rec)
+		err error
 	)
 
-	err := getAllUsers(c)
+	err = getAllUsers(c)
 	if err != nil {
 		t.Error(err.Error())
 	}
