@@ -16,7 +16,10 @@ func TestRead(t *testing.T) {
 		req *http.Request              = httptest.NewRequest(http.MethodGet, "/", nil)
 		rec *httptest.ResponseRecorder = httptest.NewRecorder()
 		c   echo.Context               = e.NewContext(req, rec)
-		err error
+
+		respBytes []byte
+		respData  []User
+		err       error
 	)
 
 	err = getAllUsers(c)
@@ -28,11 +31,10 @@ func TestRead(t *testing.T) {
 		t.Error("invalid status code")
 	}
 
-	respBytes, err := ioutil.ReadAll(rec.Result().Body)
+	respBytes, err = ioutil.ReadAll(rec.Result().Body)
 	if err != nil {
 		t.Error(err.Error())
 	}
-	var respData []User
 	err = json.Unmarshal(respBytes, &respData)
 	if err != nil {
 		t.Error(err.Error())
